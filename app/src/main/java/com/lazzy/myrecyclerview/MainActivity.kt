@@ -8,20 +8,25 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lazzy.myrecyclerview.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvHeroes: RecyclerView
     private val list = ArrayList<Hero>()
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         rvHeroes = findViewById(R.id.rv_heroes)
         rvHeroes.setHasFixedSize(true)
 
         list.addAll(getLisHeroes())
         showRecyclerList()
+
     }
 
     private fun showRecyclerList() {
