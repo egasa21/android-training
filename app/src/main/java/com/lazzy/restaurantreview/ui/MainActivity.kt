@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.lazzy.restaurantreview.R
 import com.lazzy.restaurantreview.data.response.CustomerReviewsItem
 import com.lazzy.restaurantreview.data.response.PostReviewResponse
@@ -55,6 +56,16 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
+        mainViewModel.snakbarText.observe(this){
+           it.getContentIfNotHandled()?.let { snackBarText ->
+               Snackbar.make(
+                   window.decorView.rootView,
+                   snackBarText,
+                   Snackbar.LENGTH_SHORT
+               ).show()
+           }
+        }
+
         findRestaurant()
 
         binding.btnSend.setOnClickListener { view ->
@@ -63,6 +74,8 @@ class MainActivity : AppCompatActivity() {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+
+
     }
 
     private fun findRestaurant() {
